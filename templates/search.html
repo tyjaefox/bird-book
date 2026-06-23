@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Fault search — Maintenance Analyzer{% endblock %}
+{% block content %}
+  <div class="eyebrow">Discrepancy log</div>
+  <h1>Fault keyword search</h1>
+  <p class="muted">Search discrepancy text across the whole fleet — e.g. <code>oil</code>, <code>hydraulic</code>, <code>chip</code>, <code>generator</code>.</p>
+
+  <form class="searchbar" method="get" action="{{ url_for('keyword_search') }}">
+    <input type="text" name="kw" value="{{ kw }}" placeholder="keyword" autofocus>
+    <button class="btn" type="submit">Search</button>
+  </form>
+
+  {% if kw %}
+    <h2>{{ results|length }} match{{ 'es' if results|length != 1 else '' }} for &ldquo;{{ kw }}&rdquo;{% if results|length == 200 %} (showing first 200){% endif %}</h2>
+    {% if results %}
+    <div class="panel" style="padding:0; overflow:hidden;">
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Tail #</th><th>Component</th><th>Discrepancy</th><th>Corrective action</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+        {% for r in results %}
+          <tr>
+            <td class="mono">{{ r['date'] }}</td>
+            <td class="tail"><a href="{{ url_for('aircraft_detail', aircraft_id=r['aircraft_id']) }}">{{ r['tail_number'] }}</a></td>
+            <td>{{ r['component_name'] }}</td>
+            <td>{{ r['discrepancy_text'] }}</td>
+            <td class="muted">{{ r['corrective_action'] }}</td>
+            <td><span class="chip {{ r['status']|lower }}">{{ r['status'] }}</span></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <p class="muted">No discrepancies contain that keyword.</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}

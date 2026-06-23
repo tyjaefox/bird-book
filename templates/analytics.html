@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Analytics — Maintenance Analyzer{% endblock %}
+{% block content %}
+  <div class="eyebrow">Fleet analytics</div>
+  <h1>Maintenance Trends</h1>
+  <p class="muted">Aggregated across the full discrepancy log.</p>
+
+  <h2>Top 10 faults</h2>
+  <div class="panel" style="padding:0; overflow:hidden;">
+    <table>
+      <thead><tr><th>Discrepancy</th><th class="num-cell">Count</th></tr></thead>
+      <tbody>
+      {% for r in top_faults %}
+        <tr><td>{{ r['discrepancy_text'] }}</td><td class="num-cell">{{ r['n'] }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Components with most failures</h2>
+  <div class="panel" style="padding:0; overflow:hidden;">
+    <table>
+      <thead><tr><th>Component</th><th>Category</th><th class="num-cell">Count</th></tr></thead>
+      <tbody>
+      {% for r in top_components %}
+        <tr><td>{{ r['component_name'] }}</td><td class="muted">{{ r['category'] }}</td><td class="num-cell">{{ r['n'] }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Highest downtime aircraft</h2>
+  <div class="panel" style="padding:0; overflow:hidden;">
+    <table>
+      <thead><tr><th>Tail #</th><th>Model</th><th class="num-cell">Downtime hrs</th></tr></thead>
+      <tbody>
+      {% for r in top_downtime %}
+        <tr>
+          <td class="tail"><a href="{{ url_for('aircraft_detail', aircraft_id=r['aircraft_id']) }}">{{ r['tail_number'] }}</a></td>
+          <td>{{ r['model'] }}</td>
+          <td class="num-cell">{{ r['downtime'] }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Repeat issues <span class="muted" style="font-weight:400; font-size:.9rem;">(same component &gt; 5×)</span></h2>
+  <div class="panel" style="padding:0; overflow:hidden;">
+    <table>
+      <thead><tr><th>Tail #</th><th>Component</th><th class="num-cell">Occurrences</th></tr></thead>
+      <tbody>
+      {% for r in repeats %}
+        <tr><td class="tail">{{ r['tail_number'] }}</td><td>{{ r['component_name'] }}</td><td class="num-cell">{{ r['n'] }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Aviation Maintenance Analyzer{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-mark">UH-60</span>
+        <span class="brand-name">Maintenance Analyzer</span>
+      </a>
+      <nav class="nav">
+        <a href="{{ url_for('index') }}">Fleet</a>
+        <a href="{{ url_for('analytics') }}">Analytics</a>
+        <a href="{{ url_for('keyword_search') }}">Fault search</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer wrap">
+    <span>Synthetic data — for demonstration only. No real aircraft or unit records.</span>
+  </footer>
+</body>
+</html>

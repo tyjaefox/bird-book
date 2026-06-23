@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ ac['tail_number'] }} — Maintenance Analyzer{% endblock %}
+{% block content %}
+  <a class="back" href="{{ url_for('index') }}">&larr; Fleet</a>
+
+  <div class="panel">
+    <div class="detail-head">
+      <div>
+        <div class="eyebrow">Aircraft record</div>
+        <h1 class="tail">{{ ac['tail_number'] }}</h1>
+        <span class="muted">{{ ac['model'] }} · {{ ac['unit'] }}</span>
+      </div>
+      <span class="chip {{ ac['status']|lower }}" style="font-size:.85rem;">{{ ac['status'] }}</span>
+    </div>
+    <div class="kv">
+      <div><div class="k">Airframe hrs</div><div class="v">{{ '%.1f'|format(ac['airframe_hours']) }}</div></div>
+      <div><div class="k">Avg / month</div><div class="v">{{ '%.1f'|format(ac['avg_monthly_hours']) }}</div></div>
+      <div><div class="k">Discrepancies</div><div class="v">{{ stats['total'] }}</div></div>
+      <div><div class="k">Open</div><div class="v">{{ stats['open_cnt'] }}</div></div>
+      <div><div class="k">Total downtime</div><div class="v">{{ '%.1f'|format(stats['downtime']) }} hr</div></div>
+    </div>
+    {% if common_fault %}
+      <p class="muted" style="margin-top:12px;">Most common fault: <strong>{{ common_fault['discrepancy_text'] }}</strong> ({{ common_fault['n'] }}×)</p>
+    {% endif %}
+  </div>
+
+  <h2>Upcoming maintenance</h2>
+  <p class="muted" style="margin-top:-6px;">Remaining hours are to component life / inspection interval. Remaining days are projected from this aircraft's utilization rate.</p>
+  <div class="panel" style="padding:0; overflow:hidden;">
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Type</th><th class="num-cell">Hrs remaining</th><th class="num-cell">Days remaining</th><th></th></tr>
+      </thead>
+      <tbody>
+      {% for u in upcoming %}
+        <tr>
+          <td>{{ u['item'] }}<div class="muted" style="font-size:.8rem;">{{ u['detail'] }}</div></td>
+          <td class="muted">{{ u['kind'] }}</td>
+          <td class="num-cell readout {{ u['urgency'] }}">{{ '%.0f'|format(u['hours_left']) if u['hours_left'] is not none else '—' }}</td>
+          <td class="num-cell readout {{ u['urgency'] }}">{{ u['days_left'] if u['days_left'] is not none else '—' }}</td>
+          <td><span class="chip {{ u['urgency'] }}">{{ {'due':'DUE','soon':'SOON','ok':'OK'}[u['urgency']] }}</span></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Discrepancy history <span class="muted" style="font-weight:400; font-size:.9rem;">(most recent 50)</span></h2>
+  <div class="panel" style="padding:0; overflow:hidden;">
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Component</th><th>Discrepancy</th><th>Corrective action</th><th class="num-cell">Downtime</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+      {% for h in history %}
+        <tr>
+          <td class="mono">{{ h['date'] }}</td>
+          <td>{{ h['component_name'] }}</td>
+          <td>{{ h['discrepancy_text'] }}</td>
+          <td class="muted">{{ h['corrective_action'] }}</td>
+          <td class="num-cell">{{ '%.1f'|format(h['downtime_hours']) }}</td>
+          <td><span class="chip {{ h['status']|lower }}">{{ h['status'] }}</span></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,143 @@
+:root {
+  --bg:        #f4f6f8;
+  --panel:     #ffffff;
+  --border:    #e1e6ec;
+  --ink:       #1b2430;
+  --muted:     #5d6878;
+  --slate:     #11202e;   /* command-deck header */
+  --slate-2:   #1c3147;
+  --accent:    #2f6fb0;
+
+  --fmc:       #1f8a4c;  --fmc-bg:  #e7f4ec;
+  --pmc:       #b06d06;  --pmc-bg:  #fbf0dd;
+  --nmc:       #c23b32;  --nmc-bg:  #fce8e6;
+
+  --mono: ui-monospace, "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* ---- top bar ------------------------------------------------------------ */
+.topbar {
+  background: var(--slate);
+  border-bottom: 3px solid var(--accent);
+}
+.topbar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 58px;
+}
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.brand-mark {
+  font-family: var(--mono); font-weight: 700; letter-spacing: .05em;
+  color: #fff; background: var(--slate-2); padding: 3px 8px; border-radius: 4px;
+  font-size: .95rem;
+}
+.brand-name { color: #c7d2dd; font-weight: 600; letter-spacing: .01em; }
+.nav a {
+  color: #c7d2dd; text-decoration: none; margin-left: 22px;
+  font-size: .92rem; font-weight: 500;
+}
+.nav a:hover { color: #fff; }
+
+/* ---- generic ------------------------------------------------------------ */
+main.wrap { padding-top: 28px; padding-bottom: 40px; }
+h1 { font-size: 1.45rem; margin: 0 0 4px; letter-spacing: -.01em; }
+h2 { font-size: 1.05rem; margin: 28px 0 12px; letter-spacing: -.01em; }
+.eyebrow {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+
+.panel {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 8px; padding: 18px 20px; margin-bottom: 18px;
+}
+
+/* ---- search box --------------------------------------------------------- */
+.searchbar { display: flex; gap: 10px; margin: 14px 0 22px; }
+.searchbar input[type="text"] {
+  flex: 1; padding: 11px 14px; font-size: 1rem;
+  border: 1px solid var(--border); border-radius: 6px; background: #fff;
+  font-family: var(--sans);
+}
+.searchbar input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.btn {
+  padding: 11px 18px; border: none; border-radius: 6px; cursor: pointer;
+  background: var(--accent); color: #fff; font-weight: 600; font-size: .95rem;
+}
+.btn:hover { background: #275d96; }
+
+/* ---- readiness summary -------------------------------------------------- */
+.readiness { display: flex; gap: 12px; flex-wrap: wrap; }
+.stat {
+  flex: 1; min-width: 120px; background: var(--panel);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px;
+}
+.stat .num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; }
+.stat .lbl { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.stat.fmc .num { color: var(--fmc); }
+.stat.pmc .num { color: var(--pmc); }
+.stat.nmc .num { color: var(--nmc); }
+
+/* ---- tables ------------------------------------------------------------- */
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+thead th {
+  text-align: left; font-size: .74rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+  border-bottom: 2px solid var(--border); padding: 8px 10px;
+}
+tbody td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tbody tr:hover { background: #f9fafb; }
+.mono { font-family: var(--mono); }
+.num-cell { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.tail { font-family: var(--mono); font-weight: 600; }
+
+/* ---- status chips ------------------------------------------------------- */
+.chip {
+  display: inline-block; font-family: var(--mono); font-size: .72rem;
+  font-weight: 700; letter-spacing: .06em; padding: 2px 8px; border-radius: 999px;
+}
+.chip.fmc, .chip.ok  { color: var(--fmc); background: var(--fmc-bg); }
+.chip.pmc, .chip.soon{ color: var(--pmc); background: var(--pmc-bg); }
+.chip.nmc, .chip.due { color: var(--nmc); background: var(--nmc-bg); }
+.chip.open { color: var(--nmc); background: var(--nmc-bg); }
+.chip.closed { color: var(--muted); background: #eef1f4; }
+
+/* remaining-hours readout cell that reflects urgency */
+.readout.due  { color: var(--nmc); font-weight: 700; }
+.readout.soon { color: var(--pmc); font-weight: 600; }
+.readout.ok   { color: var(--ink); }
+
+/* ---- detail header ------------------------------------------------------ */
+.detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.kv { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 10px; }
+.kv div .k { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.kv div .v { font-family: var(--mono); font-size: 1.05rem; }
+
+.back { font-size: .9rem; }
+
+/* ---- responsive --------------------------------------------------------- */
+@media (max-width: 640px) {
+  .nav a { margin-left: 14px; font-size: .85rem; }
+  .brand-name { display: none; }
+  table { font-size: .82rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stat, .panel { transition: box-shadow .15s ease; }
+}
+
+.footer { color: var(--muted); font-size: .8rem; padding: 20px; border-top: 1px solid var(--border); }
