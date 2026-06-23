@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ ac['tail_number'] }} — Maintenance Analyzer{% endblock %}
+{% block title %}{{ ac['tail_number'] }} — Bird Book{% endblock %}
 {% block content %}
   <a class="back" href="{{ url_for('index') }}">&larr; Fleet</a>
 
@@ -13,9 +13,9 @@
       <span class="chip {{ ac['status']|lower }}" style="font-size:.85rem;">{{ ac['status'] }}</span>
     </div>
     <div class="kv">
-      <div><div class="k">Airframe hrs</div><div class="v">{{ '%.1f'|format(ac['airframe_hours']) }}</div></div>
+      <div><div class="k">Aircraft hrs</div><div class="v">{{ '%.1f'|format(ac['airframe_hours']) }}</div></div>
       <div><div class="k">Avg / month</div><div class="v">{{ '%.1f'|format(ac['avg_monthly_hours']) }}</div></div>
-      <div><div class="k">Discrepancies</div><div class="v">{{ stats['total'] }}</div></div>
+      <div><div class="k">Faults</div><div class="v">{{ stats['total'] }}</div></div>
       <div><div class="k">Open</div><div class="v">{{ stats['open_cnt'] }}</div></div>
       <div><div class="k">Total downtime</div><div class="v">{{ '%.1f'|format(stats['downtime']) }} hr</div></div>
     </div>
@@ -25,7 +25,7 @@
   </div>
 
   <h2>Upcoming maintenance</h2>
-  <p class="muted" style="margin-top:-6px;">Remaining hours are to component life / inspection interval. Remaining days are projected from this aircraft's utilization rate.</p>
+  <p class="muted" style="margin-top:-6px;">Remaining hours are to component time / ACFT inspection interval. Remaining days are projected from this aircraft's utilization rate.</p>
   <div class="panel" style="padding:0; overflow:hidden;">
     <table>
       <thead>
@@ -45,11 +45,11 @@
     </table>
   </div>
 
-  <h2>Discrepancy history <span class="muted" style="font-weight:400; font-size:.9rem;">(most recent 50)</span></h2>
+  <h2>Fault history <span class="muted" style="font-weight:400; font-size:.9rem;">(most recent 50)</span></h2>
   <div class="panel" style="padding:0; overflow:hidden;">
     <table>
       <thead>
-        <tr><th>Date</th><th>Component</th><th>Discrepancy</th><th>Corrective action</th><th class="num-cell">Downtime</th><th>Status</th></tr>
+        <tr><th>Date</th><th>Component</th><th>Fault</th><th>Corrective action</th><th class="num-cell">Downtime</th><th>Status</th></tr>
       </thead>
       <tbody>
       {% for h in history %}

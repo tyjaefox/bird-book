@@ -2,7 +2,7 @@
 {% block content %}
   <div class="eyebrow">Fleet status board</div>
   <h1>UH-60 Fleet Overview</h1>
-  <p class="muted">{{ total }} airframes tracked. Search by tail number, model, or unit.</p>
+  <p class="muted">{{ total }} aircraft logged. Search by tail number, model, or company.</p>
 
   <form class="searchbar" method="get" action="{{ url_for('index') }}">
     <input type="text" name="q" value="{{ q }}" placeholder="e.g. 92-26471, UH-60M, 2-101 AVN" autofocus>
@@ -21,7 +21,7 @@
   <div class="panel" style="padding:0; overflow:hidden;">
     <table>
       <thead>
-        <tr><th>Tail #</th><th>Model</th><th>Unit</th><th>Status</th><th class="num-cell">Airframe hrs</th></tr>
+        <tr><th>Tail #</th><th>Model</th><th>Unit</th><th>Status</th><th class="num-cell">Aircraft hrs</th></tr>
       </thead>
       <tbody>
       {% for a in aircraft %}

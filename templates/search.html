@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Fault search — Maintenance Analyzer{% endblock %}
+{% block title %}Fault search — Bird Book{% endblock %}
 {% block content %}
-  <div class="eyebrow">Discrepancy log</div>
+  <div class="eyebrow">Fault log</div>
   <h1>Fault keyword search</h1>
   <p class="muted">Search discrepancy text across the whole fleet — e.g. <code>oil</code>, <code>hydraulic</code>, <code>chip</code>, <code>generator</code>.</p>
 
@@ -16,7 +16,7 @@
     <div class="panel" style="padding:0; overflow:hidden;">
       <table>
         <thead>
-          <tr><th>Date</th><th>Tail #</th><th>Component</th><th>Discrepancy</th><th>Corrective action</th><th>Status</th></tr>
+          <tr><th>Date</th><th>Tail #</th><th>Component</th><th>Fault</th><th>Corrective action</th><th>Status</th></tr>
         </thead>
         <tbody>
         {% for r in results %}
