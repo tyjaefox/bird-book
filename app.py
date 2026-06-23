@@ -37,11 +37,8 @@ def _days_until(iso_date):
 
 
 def upcoming_for_aircraft(conn, aircraft_id, ac_row):
-    """Build the unified 'due' list for one aircraft.
-
-    Combines time/life-limited components and scheduled inspections, computes
-    remaining hours and (where a utilization rate exists) projects remaining
-    days. Returns a list sorted by soonest.
+    """Combines time tracked components and scheduled inspections, computes
+    remaining flt hrs and days. returns list sorted by soonest.
     """
     rate_per_day = ac_row["avg_monthly_hours"] / 30.0 if ac_row["avg_monthly_hours"] else None
     af_hours = ac_row["airframe_hours"]
