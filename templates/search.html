@@ -3,7 +3,7 @@
 {% block content %}
   <div class="eyebrow">Fault log</div>
   <h1>Fault keyword search</h1>
-  <p class="muted">Search discrepancy text across the whole fleet — e.g. <code>oil</code>, <code>hydraulic</code>, <code>chip</code>, <code>generator</code>.</p>
+  <p class="muted">Search fault text across the whole fleet — ex. <code>oil</code>, <code>hydraulic</code>, <code>chip</code>, <code>generator</code>.</p>
 
   <form class="searchbar" method="get" action="{{ url_for('keyword_search') }}">
     <input type="text" name="kw" value="{{ kw }}" placeholder="keyword" autofocus>

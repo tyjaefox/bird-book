@@ -5,7 +5,7 @@
   <p class="muted">{{ total }} aircraft logged. Search by tail number, model, or company.</p>
 
   <form class="searchbar" method="get" action="{{ url_for('index') }}">
-    <input type="text" name="q" value="{{ q }}" placeholder="e.g. 92-26471, UH-60M, 2-101 AVN" autofocus>
+    <input type="text" name="q" value="{{ q }}" placeholder="enter tail number, unit, or acft model" autofocus>
     <button class="btn" type="submit">Search</button>
   </form>
 
