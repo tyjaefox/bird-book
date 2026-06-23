@@ -32,7 +32,7 @@ but I was more familiar with Python at the time of making it.
 Only dependency is Flask — everything else is the Python standard library.
 
 Open `http://localhost:5000`. The app binds to `0.0.0.0`, so other people on
-the same network can reach it at `http://<your-ip>:5000`.
+the same network can reach it at `http://<host-ip-address>:5000`.
 
 
 ## Data model
